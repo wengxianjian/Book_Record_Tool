@@ -1,0 +1,11 @@
+build/
+dist/*.exe
+dist/*.json
+*.pyc
+__pycache__/
+*.pyd
+*.pyo
+*.log
+*.spec
+*.bat
+*.ico
