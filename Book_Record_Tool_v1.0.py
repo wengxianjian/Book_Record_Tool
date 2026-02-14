@@ -46,7 +46,7 @@ FONT_SIZES = {
 }
 
 # 默认字体大小
-DEFAULT_FONT_SIZE = '12 pt'
+DEFAULT_FONT_SIZE = '18 pt'
 
 # 全局字体管理器
 class FontManager:
@@ -648,8 +648,8 @@ class BookRecordApp(QMainWindow):
         self.apply_font_settings()
     
     def init_ui(self):
-        self.setWindowTitle('读书记录工具 v1.0 - 护眼版（支持年份查看）')
-        self.setGeometry(100, 100, 1200, 700)
+        self.setWindowTitle('读书记录工具 v1.0')
+        self.setGeometry(100, 100, 1200, 1200)
         
         # 创建菜单栏
         self.create_menu_bar()
@@ -673,7 +673,7 @@ class BookRecordApp(QMainWindow):
         self.add_button = QPushButton("📖 添加新书")
         self.add_button.clicked.connect(self.show_add_dialog)
         self.add_button.setMinimumHeight(45)
-        self.add_button.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+        self.add_button.setFont(FONT_MANAGER.get_font(bold=True))
         self.add_button.setObjectName("addButton")
         left_layout.addWidget(self.add_button)
         
@@ -714,7 +714,7 @@ class BookRecordApp(QMainWindow):
         # 书籍详情区域
         detail_group = QGroupBox("📋 书籍详情")
         detail_group.setObjectName("detailGroup")
-        detail_group.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+        detail_group.setFont(FONT_MANAGER.get_font(bold=True))
         detail_layout = QFormLayout()
         detail_layout.setSpacing(12)
         detail_layout.setLabelAlignment(Qt.AlignRight)
@@ -749,7 +749,7 @@ class BookRecordApp(QMainWindow):
         detail_layout.addRow(QLabel("完成日期:"), self.finish_date_label)
         
         file_info_label = QLabel(f"数据文件位置: {os.path.basename(self.book_manager.data_file)}")
-        file_info_label.setFont(FONT_MANAGER.get_font(size_multiplier=0.9))
+        file_info_label.setFont(FONT_MANAGER.get_font())
         file_info_label.setStyleSheet("color: #666666;")
         file_info_label.setToolTip(f"完整路径: {self.book_manager.data_file}")
         detail_layout.addRow(QLabel("数据文件:"), file_info_label)
@@ -760,7 +760,7 @@ class BookRecordApp(QMainWindow):
         # 笔记区域
         notes_group = QGroupBox("📝 读书笔记")
         notes_group.setObjectName("notesGroup")
-        notes_group.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+        notes_group.setFont(FONT_MANAGER.get_font(bold=True))
         notes_layout = QVBoxLayout()
         
         self.notes_display = QTextEdit()
@@ -802,7 +802,7 @@ class BookRecordApp(QMainWindow):
         # 统计信息
         stats_group = QGroupBox("📊 阅读统计")
         stats_group.setObjectName("statsGroup")
-        stats_group.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+        stats_group.setFont(FONT_MANAGER.get_font(bold=True))
         stats_layout = QVBoxLayout()
         
         stats_font = FONT_MANAGER.get_font()
@@ -822,7 +822,7 @@ class BookRecordApp(QMainWindow):
         # 当前字体大小显示
         self.font_size_label = QLabel(f"当前字体大小: {FONT_MANAGER.get_font_size_name()}")
         self.font_size_label.setAlignment(Qt.AlignCenter)
-        self.font_size_label.setFont(FONT_MANAGER.get_font(size_multiplier=0.9))
+        self.font_size_label.setFont(FONT_MANAGER.get_font())
         self.font_size_label.setStyleSheet("color: #666666;")
         stats_layout.addWidget(self.font_size_label)
         
@@ -892,7 +892,7 @@ class BookRecordApp(QMainWindow):
         
         # 更新按钮字体
         button_font = FONT_MANAGER.get_font(bold=True)
-        self.add_button.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+        self.add_button.setFont(FONT_MANAGER.get_font(bold=True))
         self.edit_button.setFont(button_font)
         self.delete_button.setFont(button_font)
         
@@ -912,7 +912,7 @@ class BookRecordApp(QMainWindow):
         
         # 更新分组框字体
         for group in self.findChildren(QGroupBox):
-            group.setFont(FONT_MANAGER.get_font(bold=True, size_multiplier=1.1))
+            group.setFont(FONT_MANAGER.get_font(bold=True))
         
         # 更新标签字体
         label_font = FONT_MANAGER.get_font(bold=True)
@@ -932,7 +932,7 @@ class BookRecordApp(QMainWindow):
         self.finish_date_label.setFont(value_font)
         self.stats_label.setFont(value_font)
         self.year_stats_label.setFont(value_font)
-        self.font_size_label.setFont(FONT_MANAGER.get_font(size_multiplier=0.9))
+        self.font_size_label.setFont(FONT_MANAGER.get_font())
         
         # 更新笔记显示字体
         self.notes_display.setFont(value_font)
@@ -966,7 +966,7 @@ class BookRecordApp(QMainWindow):
                 border: none;
                 border-radius: 6px;
                 padding: 12px;
-                font-size: {int(font_size * 1.1)}px;
+                font-size: {font_size}px;
                 font-weight: bold;
             }}
             QPushButton#addButton:hover {{
@@ -984,7 +984,7 @@ class BookRecordApp(QMainWindow):
                 margin-right: 2px;
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
-                font-size: {int(font_size * 0.9)}px;
+                font-size: {font_size}px;
                 font-weight: bold;
             }}
             QTabBar::tab:selected {{
@@ -1034,7 +1034,7 @@ class BookRecordApp(QMainWindow):
                 padding-top: 10px;
                 font-weight: bold;
                 color: {EYE_PROTECTION_COLORS['text']};
-                font-size: {int(font_size * 1.1)}px;
+                font-size: {font_size}px;
             }}
             QGroupBox::title {{
                 subcontrol-origin: margin;
